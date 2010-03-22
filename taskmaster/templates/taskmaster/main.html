@@ -32,7 +32,7 @@
         // HTML für die Zeile zusammenbasteln
         $("<td/>").addClass("person").text(person).appendTo(trow);
         $("<td/>").addClass("task").text(task).appendTo(trow);
-        $("<td/>").addClass("info").text('saving ...').appendTo(trow);
+        $("<td/>").addClass("action").text('saving ...').appendTo(trow);
         trow.appendTo($("table#tasklist tbody"));
         $('#taskeingabe #person').val("").focus();
         $('#taskeingabe #task').val("")
@@ -40,8 +40,7 @@
         $.get("api/add_task", {'person': person, 'task': task},
               function(taskid) {
                   // Dieser Code wird mit den Rückgabedaten vom Server aufgerufen (AJAX)
-                  alert(taskid);
-                  trow.find("td.info").text("");
+                  trow.find("td.action").text("");
                   trow.data('taskid', taskid).attr("id", taskid);
         });
      };
@@ -65,7 +64,15 @@
     </form> 
     <table id="tasklist">
         <thead></thead>
-        <tbody></tbody>
+        <tbody>
+          {% for task in tasks %}
+            <tr>
+                <td class="person">{{ task.destination }}</td>
+                <td class="task">{{ task.description }}</td>
+                <td class="action"></td>
+            </tr>
+          {% endfor %}
+        </tbody>
     </table>
   </body>
 </html>

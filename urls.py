@@ -29,8 +29,7 @@ urlpatterns = patterns('',
 #    {'template': 'baruch/schnellerfassung.css', 'mimetype': 'text/css'}),
 #url(r'schnellerfassung.js', 'django.views.generic.simple.direct_to_template',
 #    {'template': 'baruch/schnellerfassung.js', 'mimetype': 'application/x-javascript'}),
-url(r'^$', 'django.views.generic.simple.direct_to_template',
-    {'template': 'taskmaster/main.html'}),
+url(r'^$', 'taskmaster.views.main_tasklist'),
 url(r'^api/add_task', 'taskmaster.views.api_add_task'),
 
 )
