@@ -10,6 +10,8 @@ Copyright (c) 2009 HUDORA. All rights reserved.
 import random
 import time
 from django.db import models
+import hashlib
+import base64
 
 STATE_CHOICES = (('new', 'new'), ('finished', 'finished'), ('approved', 'approved'))
 TYP_CHOICES = (('do', 'do something'), ('provide', 'provide information'), ('upload', 'uplaod data'))
@@ -22,7 +24,7 @@ class Task(models.Model):
        To: s.lau@hudora.de
        """
     id = models.AutoField(primary_key=True)
-    designator = models.CharField(max_length=250, default='', blank=True, editable=False, db_index=True,
+    designator = models.CharField(max_length=250, default=None, null=True, blank=True, editable=False, db_index=True,
         unique=True)
     description = models.TextField()
     source = models.EmailField()

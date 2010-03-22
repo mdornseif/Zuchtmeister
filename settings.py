@@ -136,7 +136,7 @@ COUCHDB_STORAGE_OPTIONS = {'server': "http://couchdb1.local.hudora.biz:5984"}
 
 # for testing
 DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = os.path.join(os.environ['CONFIG_FILES'], 'django.db')
+DATABASE_NAME = os.path.join(os.environ['CONFIG_FILES'], 'djangotaskmaster.db')
 
 SERVER_EMAIL = 'server+django@cybernetics.hudora.biz'
 EMAIL_HOST = 'mail.hudora.biz'

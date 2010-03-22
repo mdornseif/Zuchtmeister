@@ -9,6 +9,7 @@ Copyright (c) 2009 HUDORA. All rights reserved.
 
 import unittest
 from  taskmaster import models
+from django import http
 
 def api_add_task(request):
     destination = request.GET.get('person')
@@ -19,6 +20,7 @@ def api_add_task(request):
     print task
     print task.id
     print task.designator
+    return http.HttpResponse(task.designator)
 
 class views(unittest.TestCase):
     def setUp(self):

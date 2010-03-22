@@ -24,7 +24,7 @@
         var person = $('#taskeingabe #person').val();
         var task = $('#taskeingabe #task').val();
         // neu zufügen - eine Zeile konstruieren
-        var trow = $("<tr/>");
+        trow = $("<tr/>");
         // initialize jQuery Data Dictionary
         trow.data('person', person);
         trow.data('task', task);
@@ -37,9 +37,11 @@
         $('#taskeingabe #person').val("").focus();
         $('#taskeingabe #task').val("")
 
-        $.getJSON("api/add_task", {'person': person, 'task': task},
+        $.get("api/add_task", {'person': person, 'task': task},
               function(taskid) {
                   // Dieser Code wird mit den Rückgabedaten vom Server aufgerufen (AJAX)
+                  alert(taskid);
+                  trow.find("td.info").text("");
                   trow.data('taskid', taskid).attr("id", taskid);
         });
      };
