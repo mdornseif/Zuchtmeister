@@ -76,7 +76,6 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'hudjango.middleware.clienttrack.ClientTrackMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

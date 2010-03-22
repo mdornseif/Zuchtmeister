@@ -24,8 +24,15 @@ urlpatterns = patterns('',
 (r'favicon.ico', 'django.views.generic.simple.redirect_to', {'url': 'http://s.hdimg.net/layout06/favicon.png'}),
 
 # include taskmaster
-(r'^taskmaster/', include('taskmaster.urls')),
-(r'^$', 'django.views.generic.simple.redirect_to', {'url' : '/taskmaster/'}),
+#(r'^taskmaster/', include('taskmaster.urls')),
+#url(r'schnellerfassung.css', 'django.views.generic.simple.direct_to_template',
+#    {'template': 'baruch/schnellerfassung.css', 'mimetype': 'text/css'}),
+#url(r'schnellerfassung.js', 'django.views.generic.simple.direct_to_template',
+#    {'template': 'baruch/schnellerfassung.js', 'mimetype': 'application/x-javascript'}),
+url(r'^$', 'django.views.generic.simple.direct_to_template',
+    {'template': 'taskmaster/main.html'}),
+url(r'^api/add_task', 'taskmaster.views.api_add_task'),
+
 )
 
 # when in development mode, serve static files 'by hand'

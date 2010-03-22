@@ -11,18 +11,18 @@ import unittest
 from  taskmaster import models
 
 def api_add_task(request):
-    
-    destination = request.GET.get('destination')
-    description = request.GET.get('destination')
+    destination = request.GET.get('person')
+    description = request.GET.get('task')
     # source = request.user.email
     source = 'md@hudora.de'
-    task = models.Task.object.create(description=description, source=source, destination=destination)
-    
+    task = models.Task.objects.create(description=description, source=source, destination=destination)
+    print task
+    print task.id
+    print task.designator
 
 class views(unittest.TestCase):
     def setUp(self):
         pass
-
     
 if __name__ == '__main__':
     unittest.main()

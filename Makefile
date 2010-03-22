@@ -1,42 +1,30 @@
+# we assume this redisdes in a hierachy vreated by silver-build-layout.sh
 # setting the PATH seems only to work in GNUmake not in BSDmake
-PATH := ./testenv/bin:$(PATH)
-
-default: dependencies check test
-
-hudson: clean dependencies test statistics
-	find taskmaster -name '*.py' | xargs /usr/local/hudorakit/bin/hd_pep8
-	/usr/local/hudorakit/bin/hd_pylint -f parseable taskmaster | tee pylint.out
-
-check:
-	-find taskmaster -name '*.py' | xargs /usr/local/hudorakit/bin/hd_pep8
-	-/usr/local/hudorakit/bin/hd_pylint taskmaster
-
-test:
-	python manage.py test --verbosity=1 taskmaster
-
-dependencies:
-	virtualenv testenv
-	pip -q install -E testenv -r requirements.txt
-	# the following line is needed for Django applications
-	# sh -c 'echo p | svn co https://cybernetics.hudora.biz/intern/svn/code/projects/html/trunk/templates generic_templates'
-
-statistics:
-	sloccount --wide --details taskmaster > sloccount.sc
-
-build:
-	python setup.py build sdist
-
-upload: build
-	rsync dist/* root@cybernetics.hudora.biz:/usr/local/www/apache22/data/nonpublic/eggs/
-
-install: build
-	sudo python setup.py install
+PATH := ../../bin:$(PATH)
+SILVERNODE := mischosting
 
 runserver: dependencies
-	python manage.py runserver
+	silver serve ../..
+
+deploy:
+	silver update --host 'taskmaster.23.nu' --node $(SILVERNODE) ../..
+
+firstdeploy:
+	# make SURE all dependencis are in the virtualenv
+	../../bin/pip install -I -r ./requirements.txt
+	silver -v update --node $(SILVERNODE) ../..
+	(cd ../../; silver run $(SILVERNODE) manage.py syncdb  --noinput)
+	# Initial download of data
+	curl -i http://mischosting/download/
+
+#generic_templates:
+#	sh -c 'echo p | svn co https://cybernetics.hudora.biz/intern/svn/code/projects/html/trunk/templates generic_templates'
+
+setup: dependencies
+	../../bin/python ../../bin/manage.py syncdb --noinput
+
+dependencies:
+	../../bin/pip -q install -r ./requirements.txt
 
 clean:
-	rm -Rf testenv build dist html test.db sloccount.sc pylint.out
-	find . -name '*.pyc' -or -name '*.pyo' -delete
-
-.PHONY: test build clean install upload check statistics dependencies
+	find . -name '*.pyc' -or -name '*.pyo' | xargs rm
