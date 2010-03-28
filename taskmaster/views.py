@@ -20,11 +20,15 @@ from django.conf import settings
 
 
 def main_tasklist(request):
-    tasks = models.Op.objects.all()
+    try:
+        account = models.Account.objects.get(email=request.user.email)
+    except models.Account.DoesNotExist:
+        return http.HttpResponseRedirect('/account')
+    tasks = account.ops.all()
     return shortcuts.render_to_response('taskmaster/main.html', {'tasks': tasks})
 
 
-def account(request, account_id=None):
+def account(request):
     try:
         instance = models.Account.objects.get(email=request.user.email)
     except models.Account.DoesNotExist:
@@ -45,18 +49,36 @@ def account(request, account_id=None):
             if instance.twitter_user:
                 twitter_problem = not twitter.connetion_ok(instance)
             form = forms.AccountForm(instance=instance)
-    print vars(instance)
     return shortcuts.render_to_response('taskmaster/account.html',
                                         {'form':form, 'twitter_problem': twitter_problem,
                                          'account': instance})
 
 
+def maintenance_pull_tweets(request):
+    twitter.handle_direct_messages()
+    return http.HttpResponse('ok')
+
+
 def api_add_task(request):
+    taskid = request.GET.get('taskid')
+    try:
+        account = models.Account.objects.get(email=request.user.email)
+    except models.Account.DoesNotExist:
+        return http.HttpResponseRedirect('/account')
     person = request.GET.get('person')
     description = request.GET.get('task')
     # source = request.user.email
-    source = 'md@hudora.de'
-    task = models.Task.objects.create(description=description, source=source, person=person)
+    task = models.Op.objects.create(account=account, task=description)
     return http.HttpResponse(task.designator)
 
+
+def api_delete_task(request):
+    taskid = request.GET.get('taskid')
+    try:
+        account = models.Account.objects.get(email=request.user.email)
+    except models.Account.DoesNotExist:
+        return http.HttpResponseRedirect('/account')
+    task = account.ops.get(designator=taskid)
+    task.delete()
+    return http.HttpResponse('ok')
 

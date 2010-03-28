@@ -95,7 +95,10 @@ LOGIN_REDIRECT_URL = '/main'
 LOGOUT_URL = '/logout'
 AUTHENTICATION_BACKENDS = ('googleappsauth.backends.GoogleAuthBackend',)
 GOOGLE_OPENID_REALM = 'http://asksheila.org/'
-GOOGLE_OPENID_REALM = 'http://127.0.0.1:8080/'
+if not os.environ.get('SILVER_VERSION', '').startswith('silverlining/'):
+    GOOGLE_OPENID_REALM = 'http://127.0.0.1:8080/'
+
+APPEND_SLASH = False
 
 
 #### begin defaults ####

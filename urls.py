@@ -29,10 +29,12 @@ url(r'^VvEf.NxhbheqqHtlhdgCQw--.html$', 'django.views.generic.simple.direct_to_t
     {'template': 'taskmaster/welcome.html'}),
 url(r'^$', 'django.views.generic.simple.direct_to_template',
     {'template': 'taskmaster/welcome.html'}),
-url(r'^main/$', 'taskmaster.views.main_tasklist'),
-url(r'^account/$', 'taskmaster.views.account'),
+url(r'^main$', 'taskmaster.views.main_tasklist'),
+url(r'^account$', 'taskmaster.views.account'),
 url(r'^api/add_task', 'taskmaster.views.api_add_task'),
-url(r'^api/delete_task', 'taskmaster.views.api_add_task'),
+url(r'^api/delete_task', 'taskmaster.views.api_delete_task'),
+url(r'^maintenance_every_minute', 'taskmaster.views.maintenance_pull_tweets'),
+
 )
 
 # when in development mode, serve static files 'by hand'

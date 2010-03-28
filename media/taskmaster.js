@@ -1,11 +1,10 @@
 function addTask() {
     // Form handler: wird immer aufgerufen, wenn eine neue Position der Bestellung zugefügt wird
     // oder eine Position manuel geaendert wird.
-    var person = $('#taskeingabe #person').val();
+    var person = '';
     var task = $('#taskeingabe #task').val();
     addTask_helper(person, task, '');
-    $('#taskeingabe #person').val("").focus();
-    $('#taskeingabe #task').val("")
+    $('#taskeingabe #task').val("").focus();
 };
 
 function addTask_helper(person, task, taskid) {

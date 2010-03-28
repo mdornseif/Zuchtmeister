@@ -92,5 +92,5 @@ def handle_direct_messages():
             else:
                 print 'duplicate message', vars(dm)
                 pass
-        # API.destroy_direct_message
+        api.destroy_direct_message(dm.id)
 

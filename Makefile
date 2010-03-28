@@ -7,15 +7,13 @@ runserver: dependencies
 	silver serve ../..
 
 deploy:
-	silver update --host 'askasha.org' --node $(SILVERNODE) ../..
+	silver update --host 'asksheila.org' --node $(SILVERNODE) ../..
 
 firstdeploy:
 	# make SURE all dependencis are in the virtualenv
 	../../bin/pip install -I -r ./requirements.txt
-	silver -v update --node $(SILVERNODE) ../..
+	silver -v update --host 'asksheila.org' --node $(SILVERNODE) ../..
 	(cd ../../; silver run $(SILVERNODE) manage.py syncdb  --noinput)
-	# Initial download of data
-	curl -i http://mischosting/download/
 
 #generic_templates:
 #	sh -c 'echo p | svn co https://cybernetics.hudora.biz/intern/svn/code/projects/html/trunk/templates generic_templates'
