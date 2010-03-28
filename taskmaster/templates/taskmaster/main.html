@@ -1,78 +1,74 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <title>Taskmaster</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css" type="text/css" />
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/ui.datepicker.css" type="text/css" />
-    <link rel="stylesheet" href="http://s.hdimg.net/libs/humanmsg-1.0/humanmsg.css" type="text/css">
-    <link rel="stylesheet" href="http://s.hdimg.net/libs/jquery.AccessKeyHighlighter/style/AccessKeyHighlighter.css" type="text/css" />
-    <link rel="stylesheet" href="taskmaster.css" type="text/css" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
-    <script type="text/javascript" src="http://s.hdimg.net/libs/nmcFormHelper.js"></script>
-    <script type="text/javascript" src="http://s.hdimg.net/libs/humanmsg-1.0/humanmsg.js"></script>
-    <script type="text/javascript" src="http://s.hdimg.net/libs/jquery.json-2.2.js"></script>
-    <script type="text/javascript" src="http://s.hdimg.net/libs/jquery.getUrlParam.js"></script>
-    <script type="text/javascript" src="http://s.hdimg.net/libs/jquery.AccessKeyHighlighter/script/jquery.AccessKeyHighlighter.js"></script>
-    <script type="text/javascript" src="taskmaster.js"></script>
-    <script type="text/javascript">
-    function addTask() {
-        // Form handler: wird immer aufgerufen, wenn eine neue Position der Bestellung zugefügt wird
-        // oder eine Position manuel geaendert wird.
-        var person = $('#taskeingabe #person').val();
-        var task = $('#taskeingabe #task').val();
-        // neu zufügen - eine Zeile konstruieren
-        trow = $("<tr/>");
-        // initialize jQuery Data Dictionary
-        trow.data('person', person);
-        trow.data('task', task);
-        
-        // HTML für die Zeile zusammenbasteln
-        $("<td/>").addClass("person").text(person).appendTo(trow);
-        $("<td/>").addClass("task").text(task).appendTo(trow);
-        $("<td/>").addClass("action").text('saving ...').appendTo(trow);
-        trow.appendTo($("table#tasklist tbody"));
-        $('#taskeingabe #person').val("").focus();
-        $('#taskeingabe #task').val("")
-
-        $.get("api/add_task", {'person': person, 'task': task},
-              function(taskid) {
-                  // Dieser Code wird mit den Rückgabedaten vom Server aufgerufen (AJAX)
-                  trow.find("td.action").text("");
-                  trow.data('taskid', taskid).attr("id", taskid);
-        });
-     };
- 
- 
+{% extends "taskmaster/base.html" %}
+{% block extrahead %}
+    <script type="text/javascript"> 
     $(document).ready(function() {
         // Code, der beim Laden der Seite ausgeführt wird
-        nmcFormHelper.init(); // HTML5 <form> Support in alten Browsern
-        $.highlightAccessKeys({accessKeyTag: "u"}); // markieren von access keys
-        
         $("#taskeingabe").submit(function() { addTask() });
         $('#taskeingabe #person').focus();
+        $('.loeschen').click(function(eventObject) { console.log(eventObject.parentElement); console.log(this); });
     });
     </script>
-  </head>
-  <body>
+{% endblock%}
+
+{% block tabs %}
+  <li class="selected"><a href="/main">Tasks</a></li>
+  <li><a href="/account">Account</a></li>
+{% endblock %}
+
+{% block heading %}
+        <h2>Things to be done</h2>
+        <h3>You have <span id="taskcount">0</span> open Tasks.</h3>
+{% endblock %}
+    
+{% block sidebar %}
+            <ul>    
+                <li>
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="http://www.spyka.net" title="spyka Webmaster resources">spyka webmaster</a></li>
+                        <li><a href="http://www.justfreetemplates.com" title="free web templates">Free web templates</a></li>
+                        <li><a href="http://www.spyka.net/forums" title="webmaster forums">Webmaster forums</a></li>
+                        <li><a href="http://www.awesomestyles.com/mybb-themes" title="mybb themes">MyBB themes</a></li>
+                        <li><a href="http://www.awesomestyles.com" title="free phpbb3 themes">phpBB3 styles</a></li>
+                    </ul>
+                </li>
+                
+                <li>
+                    <h4>Categories</h4>
+                    <ul>
+                      <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
+                      <li><a href="#">Quisque consequat nunc a felis.</a></li>
+                      <li><a href="#">Suspendisse consequat magna at.</a></li>
+                      <li><a href="#">Etiam eget diam id ligula rhoncus.</a></li>
+                      <li><a href="#">Sed in mauris non nibh.</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <h4>Sponsors</h4>
+                    <ul>
+                        <li><a href="http://www.themeforest.net/?ref=spykawg" title="premium templates">ThemeForest</a> - premium HTML templates, WordPress themes and PHP scripts</li>
+                        <li><a href="http://www.dreamhost.com/r.cgi?259541" title="web hosting">Web hosting</a> - 50 dollars off when you use promocode <strong>awesome50</strong></li>
+                        <li><a href="http://www.4templates.com/?aff=spykawg" title="4templates">4templates</a> - brilliant premium templates</li>
+                    </ul>
+                </li>
+            </ul>
+{% endblock %}
+
+{% block content %}
     <form id="taskeingabe" action="javascript:void(0)">
-        <input type="text" id="person" placeholder="somebody@example.com" required="required" accesskey="p">
-        <input type="text" id="task" placeholder="Task" required="required" accesskey="t">
-        <input type="submit" id="add" value="Add">
-    </form> 
-    <table id="tasklist">
-        <thead></thead>
-        <tbody>
-          {% for task in tasks %}
-            <tr>
-                <td class="person">{{ task.destination }}</td>
-                <td class="task">{{ task.description }}</td>
-                <td class="action"></td>
-            </tr>
-          {% endfor %}
-        </tbody>
-    </table>
-  </body>
-</html>
+      <div>
+        <input type="text" id="person" placeholder="somebody@example.com" accesskey="p" />
+        <input type="text" id="task" placeholder="Task" accesskey="t" />
+        <input type="submit" id="add" value="Add" />
+      </div>
+    </form>
+    
+    <ul id="tasklist">
+    </ul><!-- tasklist -->
+    <script type="text/javascript">
+      {% for task in tasks %}
+        addTask_helper("{{ task.person|escapejs }}", 
+                       "{{ task.task|escapejs }}",
+                       "{{ task.designator|escapejs }}");{% endfor %}
+    </script>
+{% endblock %}

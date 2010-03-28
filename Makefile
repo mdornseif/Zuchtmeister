@@ -7,7 +7,7 @@ runserver: dependencies
 	silver serve ../..
 
 deploy:
-	silver update --host 'taskmaster.23.nu' --node $(SILVERNODE) ../..
+	silver update --host 'askasha.org' --node $(SILVERNODE) ../..
 
 firstdeploy:
 	# make SURE all dependencis are in the virtualenv

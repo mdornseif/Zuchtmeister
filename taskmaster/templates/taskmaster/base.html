@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Ask Sheila</title>
+    <meta name="google-site-verification" content="5DuCiInmPzPzdE8HJKSierSEgN0rHBcUvNMkDixaSxc" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+    <link rel="stylesheet" href="/media/taskmaster.css" type="text/css" />
+    <script type="text/javascript" src="/media/taskmaster.js"></script>
+    {% block extrahead %}{% endblock %}
+</head>
+<body>
+<div id="wrapper">
+    <div id="top" class="clear">
+        <h1><a href="#">Ask Sheilla</a></h1>
+        <ul>
+          {% block tabs %}
+            <li><a href="/main">Tasks</a></li>
+            <li><a href="/account">Account</a></li>
+          {% endblock %}
+        </ul>
+    </div>
+    
+    <div id="header">
+        {% block heading %}
+        {% endblock %}
+    </div>
+    
+    <div id="body" class="clear">
+        <div id="sidebar" class="column-right">
+            {% block sidebar %}{% endblock %}
+        </div>
+        <div id="content" class="column-left">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    
+    <div id="footer-links">
+        <p>
+            &copy; 2010 Sheila. Design by <a href="http://www.spyka.net">Free CSS Templates</a> and <a href="http://www.justfreetemplates.com">Free Web Templates</a>
+        </p>
+    </div>
+</div><!-- wrapper -->
+</body>
+<!-- Piwik -->
+<script type="text/javascript">
+var pkBaseURL = (("https:" == document.location.protocol) ? "https://stats.hudora.de/piwik/" : "http://stats.hudora.de/piwik/");
+document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script type="text/javascript">
+try {
+var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 7);
+piwikTracker.trackPageView();
+piwikTracker.enableLinkTracking();
+} catch( err ) {}
+</script><noscript><p><img src="http://stats.hudora.de/piwik/piwik.php?idsite=7" style="border:0" alt=""/></p></noscript>
+<!-- End Piwik Tag -->
+</html>

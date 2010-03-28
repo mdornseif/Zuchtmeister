@@ -4,6 +4,9 @@
 # hudjango
 Django==1.1.1
 python-memcached
+tweepy
+googleappsauth
 django-hoptoad
+django-debug-toolbar
 #django-piston
 -e git+ssh://git@github.com/hudora/CentralServices#egg=cs

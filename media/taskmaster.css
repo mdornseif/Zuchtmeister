@@ -1,0 +1,332 @@
+/** global **/
+/* http://www.hicksdesign.co.uk/journal/forcing-scrollbars-now-even-better */
+html { height: 100%; margin-bottom: 1px; }
+
+body {
+	background-color:#CCCC9F;
+	font-family: "Gill Sans","Gill Sans MT",Calibri,Trebuchet,"Bitstream Vera Sans",Verdana,sans-serif;
+	font-size:11px;
+	color:#555555;
+	margin:0 auto;
+	padding:0;
+}
+* {
+	margin:0;
+	padding:0;
+}
+
+/** wrapper **/
+/* should be the same as body > div or body:first-child or :only-child*/
+div#wrapper {
+	width:960px;
+	margin:0 auto;
+	padding:0;
+}
+
+/** sitename+nav **/
+/* should be the same as body > div:first-child */
+div#top {
+	padding-top: 50px;
+    background: url('/media/sheila125.png') 10px 17px no-repeat;
+    z-index: 2;
+}
+div#top h1 {
+	float:left;
+	font-size:51px;
+	font-family: "Gill Sans","Gill Sans MT",Trebuchet,Calibri,"Bitstream Vera Sans",Verdana,sans-serif;
+	margin-left: 140px;
+	padding-bottom:15px;
+}
+div#top h1 a {
+	color:#DB4105;
+	font-weight: normal;
+	letter-spacing:-2px;
+	float:left;
+	text-decoration:none;
+}
+div#top ul {
+	float:right;
+	list-style:none;
+	margin:0 25px 0;
+	padding:40px 0 0;
+}
+div#top ul li {
+	float:left;
+	display:block;
+	padding:0;
+}
+div#top ul li a {
+	padding:10px 15px;
+	float:left;
+	background-color:#FFF8E3;
+	color:#33332D;
+	text-decoration:none;
+	display:block;
+	font-size:12px;
+	font-weight:bold;
+	border-right:1px solid #EFE8D3;
+	border-left:1px solid #FFFFF0;
+	text-transform:uppercase;
+}
+div#top ul li.selected a,
+div#top ul li.selected a:hover {
+	border:none;
+	background-color:#DB4105;
+}
+div#top ul li a:hover {
+	background-color:#DB4105;
+}
+
+/** header **/
+div#header {
+	background-color:#DB4105;
+	padding:25px;
+	border-bottom:10px solid #FFF8E3;
+}
+div#header h2, div#header h3 {
+	color:#FFF8E3;
+}
+div#header h2 {
+	font-weight:normal;
+	letter-spacing:0;
+}
+div#header h3 {
+	font-size:16px;
+}
+
+/** body **/
+div#body {
+	background-color:#ffffff;
+	padding:10px;
+}
+
+/** content+sidebar styles **/
+div#content {
+	width:535px;
+}
+div#content {
+	font-size:12px;
+}
+div.column-left {
+	float:left;
+	margin-right:20px;
+}
+div.column-right {
+	float:right;
+}
+div#sidebar {
+	width:230px;
+}
+div#sidebar ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+div#sidebar li ul {
+	border-top:1px solid #ddd;
+	margin-bottom:20px;
+}
+div#sidebar li ul li {
+	display:block;
+	padding:7px 15px;
+	border-bottom:1px solid #ddd;
+	color:#777;
+}
+div#sidebar li ul li a {
+	text-decoration:none;
+	font-family:"Trebuchet MS", Verdana, Arial;
+	font-weight:bold;
+}
+div#sidebar li ul li a:hover {
+	text-decoration:underline;
+}
+div#sidebar h4 { 
+	font-family:arial;
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:bold;
+	margin:0;
+	padding:7px 10px;
+}
+
+#tasklist li {
+        border-width: medium;        /* sets border width on all sides */
+        border-color: lime;
+}
+
+/** footer **/
+/* same as body:last-child */
+div#footer-links {
+	background-color:#DB4105;
+	color:#FFF8E3;
+	padding:5px;
+}
+div#footer-links p {
+	text-align:right;
+	padding:0;
+	margin:0;
+	font-size:10px;
+}
+div#footer-links a {
+	color:#fff;
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+/** clear **/
+.clear:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clear {
+	display: inline-block;
+}
+.clear {
+	display: block;
+}
+
+li.progress {
+    text-align: left;
+    list-style: none;
+    padding: 3px 10px 3px 25px;
+    margin: 5px;
+    background: url('http://s.hdimg.net/misc/activity10x10.gif') 10px 10px no-repeat;
+}
+
+abbr.platzhalter {
+    /* mache Platzhalter mit Text unsichtbar <span> würde wegen zu vielen
+    geschachtelten <spans> mit der Cascadierung probleme machen - clash mit "#positionen span"
+    aber <abbr? passt ja auch ganz gut. */
+    display: none;
+}
+
+.loeschen {
+    /* binde Grafiken als Hintergrundbilder ein */
+    background:url('http://s.hdimg.net/chameleon/blue/trash.gif') no-repeat right;
+    height: 16px;
+    width: 16px;
+    position: relative;
+    top: 16px;
+    left: 484px;
+}
+
+
+
+/** element defaults **/
+table {
+	width:100%;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	text-align:left;
+}
+th, td {
+	padding:5px 10px;
+}
+th {
+	color:#fff;
+	border-top:3px solid #1D78D3;
+	background-color:#3E91E5;
+}
+td {
+	border-bottom:1px solid #f4f4f4;
+}
+code, blockquote {
+	display:block;
+	border-left:5px solid #ddd;
+	padding:10px;
+	margin-bottom:20px;
+}
+blockquote p {
+	font-style:italic;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	margin:0;
+	height: 1%;
+}
+p {
+	line-height:1.9em;
+	margin-bottom:20px;
+}
+a {
+	color:#DB4105;
+}
+a:hover {
+	color:#DB4105;
+}
+a:focus {
+	outline:none;
+}
+fieldset {
+	display:block;
+	border:none;
+	border-top:1px solid #e0e0e0;
+}
+fieldset legend {
+	font-weight:bold;
+	font-size:13px;
+	padding-right:10px;
+	color:#222;
+}
+fieldset form {
+	padding-top:15px;
+}
+fieldset p label {
+	float:left;
+	width:150px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+fieldset form input, fieldset form select, fieldset form textarea {
+	padding:5px;
+	color:#333333;
+	font-size:13px;
+	font-family:Arial, Helvetica, sans-serif;
+	border:1px solid #ddd;
+}
+form input.formbutton {
+	margin-left:150px;
+	background:#3E91E5;
+	border:none;
+	font-family:Arial, Helvetica, sans-serif;
+	border-bottom:3px solid #1D78D3;
+	color:#ffffff;
+	font-weight:bold;
+	padding:5px 10px;
+	font-size:12px;
+}
+h1 {
+	font-size:45px;
+}
+h2 {
+	color:#2f2f2f;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:30px;
+	font-weight:bold;
+	letter-spacing:-2px;
+	padding:0 0 5px;
+	margin:0;
+}
+h3 {
+	color:#333333;
+	font-size:20px;
+	padding-bottom:10px;
+}
+h4 {
+	padding-bottom:10px;
+	font-size:15px;
+	color:#2284B8;
+}
+h5 {
+	padding-bottom:10px;
+	font-size:13px;
+	color:#666666;
+}
+ul, ol {
+	margin:0 0 35px 35px;
+}
+li {
+	padding-bottom:5px;
+}

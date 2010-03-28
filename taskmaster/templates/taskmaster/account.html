@@ -1,0 +1,31 @@
+{% extends "taskmaster/base.html" %}
+
+{% block heading %}
+        <h2>Account Settings</h2>
+        <h3>All about you!</h3>
+{% endblock %}
+
+{% block tabs %}
+  <li><a href="/main">Tasks</a></li>
+  <li class="selected"><a href="/account">Account</a></li>
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+{{ form.as_p }}
+<input type="submit" value="Save" />
+</form>
+{% endblock %}
+
+{% block sidebar %}
+<ul>
+    {% if twitter_problem %}<li>
+        <h4>Problem with Twitter</h4>
+        <p>Seem there is someting wrong on the Internet. I can't send messages
+           form my account <a href="https://twitter.com/asksheila">@asksheila</a> to
+           <a href="https://twitter.com/{{ account.twitter_name }}">@{{ account.twitter_user }}</a>.
+        </p>
+        <p>Please check if you are following <a href="https://twitter.com/asksheila">@asksheila</a>!
+    </li>{% endif %}{# twitter_problem #}
+</ul>
+{% endblock %}
