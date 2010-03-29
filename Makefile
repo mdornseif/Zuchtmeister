@@ -3,7 +3,7 @@
 PATH := ../../bin:$(PATH)
 SILVERNODE := mischosting
 
-runserver: dependencies
+runserver:
 	silver serve ../..
 
 deploy:

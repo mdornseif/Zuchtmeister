@@ -87,6 +87,7 @@ def handle_direct_messages():
                                     text="Hi, Sheila here. I'm terribly sorry, but I forgot where we met and I don't have you in my files. Could you log in at http://asksheila.org/?")
         else:
             account = accounts[0]
+            # TODO: use objects.get_or_create()
             if models.Op.objects.filter(account=account, tweet_id=dm.id).count() < 1:
                 models.Op.objects.create(account=account, task=dm.text, tweet_id=dm.id)
             else:

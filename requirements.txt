@@ -6,6 +6,7 @@ Django==1.1.1
 python-memcached
 tweepy
 googleappsauth>=1.02
+vobject
 django-hoptoad
 django-debug-toolbar
 #django-piston

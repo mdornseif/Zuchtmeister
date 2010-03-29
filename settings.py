@@ -75,7 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'googleappsauth.middleware.GoogleAuthMiddleware',
+    #'googleappsauth.middleware.GoogleAuthMiddleware',
 )
 
 if DEBUG:
@@ -98,8 +98,18 @@ GOOGLE_OPENID_REALM = 'http://asksheila.org/'
 if not os.environ.get('SILVER_VERSION', '').startswith('silverlining/'):
     GOOGLE_OPENID_REALM = 'http://127.0.0.1:8080/'
 
-APPEND_SLASH = False
+DATABASE_ENGINE = 'sqlite3'
+DATABASE_NAME = os.path.join(os.environ['CONFIG_FILES'], 'taskmaster.db')
 
+SERVER_EMAIL = 'm.dornseif+server@hudora.de'
+EMAIL_HOST = 'mailout.easydns.com'
+EMAIL_USE_TLS = True
+
+ADMINS = (
+    ('md', 'm.dornseif+django@hudora.de'),
+)
+MANAGERS = ADMINS
+PREPEND_WWW = False
 
 #### begin defaults ####
 
@@ -124,17 +134,3 @@ LANGUAGES = (
 
 SECRET_KEY = 'sua1+khy2x-dojd_+r2j^7$asdfasQ@#$)!v94tpxe-g&_n6xxxv0!f+y'
 
-# for testing
-DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = os.path.join(os.environ['CONFIG_FILES'], 'taskmaster.db')
-
-SERVER_EMAIL = 'server+django@cybernetics.hudora.biz'
-EMAIL_HOST = 'mail.hudora.biz'
-EMAIL_USE_TLS = True
-
-ADMINS = (
-    ('Zwitschr', 'django@cybernetics.hudora.biz'),
-    ('HUDORA Operations', 'edv@hudora.de'),
-)
-MANAGERS = ADMINS
-PREPEND_WWW = False
