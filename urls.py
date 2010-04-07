@@ -11,17 +11,10 @@ urlpatterns = patterns('',
 # admin stuff
 #(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 ('^admin/', include(admin.site.urls)),
-(r'^accounts/login/$', 'django.contrib.auth.views.login'),
-(r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
-(r'^accounts/password_change/$', 'django.contrib.auth.views.password_change'),
-(r'^accounts/password_change/done/$', 'django.contrib.auth.views.password_change_done'),
-(r'^accounts/password_reset/$', 'django.contrib.auth.views.password_reset'),
-(r'^accounts/password_reset/done/$', 'django.contrib.auth.views.password_reset_done'),
-# this is where login without source url goes
-(r'^accounts/profile/', 'django.views.generic.simple.redirect_to', {'url' : '/'}),
 
-# ensure requests to favicon don't clutter logs
+# ensure requests to favicon and robots.txt don't clutter logs
 (r'favicon.ico', 'django.views.generic.simple.redirect_to', {'url': 'http://s.hdimg.net/layout06/favicon.png'}),
+(r'robots.txt', 'django.views.generic.simple.redirect_to', {'url': 'http://s.hdimg.net/misc/robots.txt'}),
 
 (r'^callback_googleappsauth/', 'googleappsauth.views.callback'),
 
