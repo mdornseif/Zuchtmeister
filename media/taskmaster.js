@@ -12,7 +12,7 @@ function addTask_helper(person, task, taskid) {
     var textToInsert = '';
     var tdiv = $('<li class="progress"/>');
     textToInsert  += '<span class="person">' + person + '</span><br/>';
-    textToInsert  += '<span class="task">' + task + '</span> ';
+    textToInsert  += '<a class="task" href="/ops/' + taskid + '">' + task + '</a> ';
     tdiv.append(textToInsert);
     $('#tasklist').prepend(tdiv);
     // initialize jQuery Data Dictionary

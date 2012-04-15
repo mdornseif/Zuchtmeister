@@ -1,14 +1,4 @@
 {% extends "taskmaster/base.html" %}
-{% block extrahead %}
-    <script type="text/javascript"> 
-    $(document).ready(function() {
-        // Code, der beim Laden der Seite ausgeführt wird
-        $("#taskeingabe").submit(function() { addTask() });
-        $('#taskeingabe #task').focus();
-        $('.loeschen').click(function(eventObject) { console.log(eventObject.parentElement); console.log(this); });
-    });
-    </script>
-{% endblock%}
 
 {% block tabs %}
   <li class="selected"><a href="/main/">Ops</a></li>
@@ -23,6 +13,15 @@
 
 {% block content %}
     <p>
-        {{ op }}
-    </p>
+    {{ op.task }}<br>
+    {{ op.designator }}<br>
+    {{ op.account }}<br>
+    {{ op.peep }} / {{ op.peep.id }} / {{ op.peep.designator }}<br>
+    {{ op.tweet_id }}<br>
+    {{ op.person }}<br>
+    {{ op.typ }}<br>
+    {{ op.state }}<br>
+    {{ op.created_at }}<br>
+    {{ op.updated_at }}<br>
+   </p>
 {% endblock %}

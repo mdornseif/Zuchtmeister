@@ -1,4 +1,4 @@
-# we assume this redisdes in a hierachy vreated by silver-build-layout.sh
+# we assume this redisdes in a hierachy created by silver-build-layout.sh
 # setting the PATH seems only to work in GNUmake not in BSDmake
 PATH := ../../bin:$(PATH)
 SILVERNODE := mischosting
@@ -15,8 +15,9 @@ firstdeploy:
 	silver -v update --host 'asksheila.org' --node $(SILVERNODE) ../..
 	(cd ../../; silver run $(SILVERNODE) manage.py syncdb  --noinput)
 
-#generic_templates:
-#	sh -c 'echo p | svn co https://cybernetics.hudora.biz/intern/svn/code/projects/html/trunk/templates generic_templates'
+livedb_to_test:
+	# copies database from the live system onto your box
+	scp root@asksheila.org:/var/lib/silverlining/apps/taskmaster/taskmaster.db ~/.silverlining-app-data/files/taskmaster/taskmaster.db
 
 setup: dependencies
 	../../bin/python ../../bin/manage.py syncdb --noinput
