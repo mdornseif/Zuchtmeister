@@ -7,20 +7,6 @@ Created by Maximillian Dornseif on 2010-03-28.
 Copyright (c) 2010 HUDORA. All rights reserved.
 """
 
-# see http://www.b-list.org/weblog/2007/sep/22/standalone-django-scripts/
-#from django.core.management import setup_environ
-#import settings
-#setup_environ(settings)
-
-#Yahoo:
-# API Key (OAuth consumer key)
-# dj0yJmk9NVo1QnJhYW1EQXJ3JmQ9WVdrOVowbGhZVlJFTkc4bWNHbzlNVGt3TURrME5qazJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD05Zg--
-# Shared Secret
-# f8e7987b1eec2e687580978482504d32ca5a5ae0
-# Application ID
-# gIaaTD4o
-# Application Domain
-# asksheila.org
 
 import tweepy
 from taskmaster import models

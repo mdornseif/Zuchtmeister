@@ -44,8 +44,8 @@
     </ul><!-- tasklist -->
     <script type="text/javascript">
       {% for task in tasks %}
-        addTask_helper("{{ task.person|escapejs }}", 
-                       "{{ task.task|escapejs }}",
-                       "{{ task.designator|escapejs }}");{% endfor %}
+        addTask_helper("{{ task.person|e }}", 
+                       "{{ task.task|e }}",
+                       "{{ task.designator|e }}");{% endfor %}
     </script>
 {% endblock %}
