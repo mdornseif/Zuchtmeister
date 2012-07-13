@@ -1,0 +1,20 @@
+{% extends "taskmaster2/base.html" %}
+
+{% block content %}
+    <form id="taskeingabe" action="javascript:void(0)">
+      <div>
+        <input type="text" id="peep" placeholder="Wer" accesskey="p" />
+        <input type="text" id="task" placeholder="Was" accesskey="t" />
+        <input type="submit" id="summary" value="Add" />
+      </div>
+    </form>
+
+    <ul id="tasklist">
+    </ul><!-- tasklist -->
+    <script type="text/javascript">
+      {% for task in tasks %}
+        addTask_helper("{{ task.person|e }}",
+                       "{{ task.task|e }}",
+                       "{{ task.designator|e }}");{% endfor %}
+    </script>
+{% endblock %}

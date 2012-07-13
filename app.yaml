@@ -30,6 +30,10 @@ handlers:
 - url: /logout
   script: lib/appengine-toolkit/gaetk/login.py
 
+- url: /tasks/.*
+  script: taskmaster2.py
+  login: required
+
 - url: .*
   script: taskmaster/views.py
   login: required
