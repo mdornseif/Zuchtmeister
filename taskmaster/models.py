@@ -32,7 +32,7 @@ class Account(ndb.Model):
 
 class Peep(ndb.Model):
     """Represents a person, company or location."""
-    #account = models.ForeignKey(Account, related_name='peeps')
+    account = ndb.UserProperty()
     twitter_user = ndb.StringProperty(default='')
     email = ndb.StringProperty(default='')
     name = ndb.StringProperty(default='')
@@ -45,21 +45,26 @@ class Peep(ndb.Model):
             return u'%s' % self.email
 
     def get_url(self):
-        return "/peeps/%s/" % self.key().urlsafe()
+        return "/peeps/p%s/" % self.key.id()
 
+    @property
+    def designator(self):
+        return 'p%s' % self.key.id()
 
 STATE_CHOICES = (('new', 'new'), ('parsed', 'parsed'), ('done', 'done'), ('finished', 'finished'), ('deleted', 'deleted'))
 TYP_CHOICES = (('do', 'do something'), ('provide', 'provide information'), ('upload', 'uplaod data'))
 
 class Op(ndb.Model):
-    """Example:
+    """Op kodiert etwas, was zu tun ist.
+    
+       Example:
        Task: Please upload Information regarding the foobar
        Priority: Low|Medium|High
        From: md@hudora.de
        To: s.lau@hudora.de
        """
     account = ndb.UserProperty()
-    #peep = models.ForeignKey(Peep, related_name='ops', blank=True, null=True)
+    peep = ndb.KeyProperty(kind=Peep)
     tweet_id = ndb.StringProperty(default='')
     task = ndb.TextProperty(default='')
     person = ndb.StringProperty(default='')
@@ -72,4 +77,8 @@ class Op(ndb.Model):
         return (u'%s: %s' % (self.designator, self.task))[:40]
 
     def get_absolute_url(self):
-        return "/ops/%s/" % self.designator
+        return "/ops/o%s/" % self.key.id()
+    
+    @property
+    def designator(self):
+        return 'o%s' % self.key.id()

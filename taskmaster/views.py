@@ -27,7 +27,7 @@ from taskmaster import models
 
 class TasklistHandler(gaetk.handler.BasicHandler):
     @ndb.toplevel
-    def get(self):
+    def get(self, designator):
         user = users.get_current_user()
         ops = models.Op.query().fetch(100)
 
@@ -42,6 +42,18 @@ class TasklistHandler(gaetk.handler.BasicHandler):
         self.render(dict(title=u"Tasks",
                          tasks=ops,
                          ), 'taskmaster/main.html')
+
+class ShowTaskHandler(gaetk.handler.BasicHandler):
+    @ndb.toplevel
+    def get(self):
+        user = users.get_current_user()
+        op = models.Op.query(models.Op.account==user).fetch(100)
+get_by_id(id, parent=None)
+Returns an entity by ID. This is really just a shorthand for Key(cls, id).get().
+
+        self.render(dict(title=u"Task",
+                         tasks=ops,
+                         ), 'taskmaster/task.html')
 
 
 #@account_login_required
@@ -113,14 +125,20 @@ def account_settings(request):
                                          'account': instance})
 
 
-class AddTaskHandler(gaetk.handler.BasicHandler):
+class ApiAddTaskHandler(gaetk.handler.BasicHandler):
     @ndb.toplevel
     def get(self):
         user = users.get_current_user()
         opid = self.request.get('taskid')
         person = self.request.get('person')
         description = self.request.get('task')
-        op = models.Op(account=user, task=description)
+        
+        # Schauen, ob wir den peep schon kennen, ansonsten anlegen.
+        peep = models.Peep.query(models.Peep.email == person, models.Peep.account==user).get()
+        if not peep:
+            peep = models.Peep(account=user, email=person)
+            peep.put()
+        op = models.Op(account=user, peep=peep.key, task=description)
         op.put()
         logging.info(dir(op.key))
         self.response.write(op.key.urlsafe())
@@ -135,7 +153,8 @@ def api_delete_task(request):
     return http.HttpResponse('ok')
 
 
-urls = [('^/api/add_task*$', AddTaskHandler),
+urls = [('^/api/add_task*$', ApiAddTaskHandler),
+        ('^/ops/(.*)$', ShowTaskHandler)]
         ('^/.*$', TasklistHandler)]
 
 app = webapp.WSGIApplication(urls)
